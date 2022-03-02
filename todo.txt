@@ -1,0 +1,7 @@
+Line clears
+SRS kick table
+0 arr
+Ghost Pieces
+Keybinds
+t-spin detection
+Line Clear Animation
