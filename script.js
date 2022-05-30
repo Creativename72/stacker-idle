@@ -7,7 +7,7 @@ const c = document.getElementById("myCanvas");
 const ctx = c.getContext("2d");
 export const board = [];
 export var currentPiece = null;
-var hold = null;
+export var hold = null;
 const bag = new SevenBag();
 export var controls = new Controls();
 controls.addKeyDownListener();
@@ -33,16 +33,18 @@ export function nextPiece() {
       }
     }
     if (lineFull) {
-      for (var mino = 0; mino < 10; mino++) {
-        for (var i = 0; i < line; i++) {
-          board[mino][line] = board[mino][line - 1]
-        }
-      }
-      for (var mino = 0; mino < 10; mino++) {
-        board[mino][0] = null;
+      for (var x = 0; x < 10;x++) {
+        clearColumn(x,line);
       }
     }
   }
+}
+
+export function clearColumn(x,y) {
+  for (var i = y; i > 0; i--) {
+    board[x][i] = board[x][i-1];
+  }
+  board[x][0] = null;
 }
 
 export function holdPiece() {
@@ -55,6 +57,7 @@ export function holdPiece() {
     hold = currentPiece;
     currentPiece = switcher;
   }
+  hold.reset()
   currentPiece.reset()
 }
 
@@ -67,7 +70,7 @@ function main() {
       board[i].push(null);
     }  
   }
-  setInterval(drawMatrix,100)
+  setInterval(drawMatrix,50)
 }
 
 main()

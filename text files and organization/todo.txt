@@ -1,7 +1,7 @@
-Line clears
+next queue
+fix control eating
 SRS kick table
 0 arr
 Ghost Pieces
 Keybinds
 t-spin detection
-Line Clear Animation

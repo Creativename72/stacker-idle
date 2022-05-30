@@ -1,17 +1,21 @@
 import {board} from "./script.js"
 const c = document.getElementById("myCanvas");
 const ctx = c.getContext("2d")
+import {boardScaler,xShift} from "./graphics.js";
+
 export class Mino {
   
   constructor(color) {
     this.color = color;
   }
-  render(x,y) {
-    var oldFillStyle = ctx.fillStyle;
-    ctx.fillStyle = this.color;
-    var size = (c.width/10);
-    ctx.fillRect((x * size) + ctx.lineWidth,(y * size) + ctx.lineWidth,size - ctx.lineWidth * 2,size - ctx.lineWidth * 2);
-    ctx.fillStyle = oldFillStyle
+  
+  render(x,y,context) {
+    //this is the bug because its rendering based off x,y stuff i think maybe
+    var oldFillStyle = context.fillStyle;
+    context.fillStyle = this.color;
+    var size = ((c.width * (boardScaler))/10);
+    context.fillRect((x * size) + context.lineWidth + xShift,(y * size) + context.lineWidth,(size - context.lineWidth * 2),size - context.lineWidth * 2);
+    context.fillStyle = oldFillStyle
   }
 
   intersect(x,y) {
@@ -51,15 +55,18 @@ export class Tetromino {
     }
     this.rotation = 0;
   }
-  render(ctx) {
+  
+  render() {
+    var context = ctx;
     for (var y in this.board) {
       for (var x in this.board[y]) {
         if (this.board[y][x]) {
-          this.board[y][x].render(this.x + parseInt(x), this.y + parseInt(y),ctx);
+          this.board[y][x].render(this.x + parseInt(x), this.y + parseInt(y),context);
         }
       }
     }
   }
+
   reset() {
     if (this.board.length != 4) {
       this.x = 3 + (3-this.board.length);
@@ -83,7 +90,6 @@ export class Tetromino {
       this.y += 1;
     }
     this.y -= 1;
-    //this.writeToBoard()
   }
   intersect() {
     for (var y in this.board) {

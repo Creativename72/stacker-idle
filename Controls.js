@@ -1,7 +1,8 @@
 //controls variables
 import {controls} from "./script.js"
 import {currentPiece} from "./script.js"
-import {nextPiece,holdPiece} from "./script.js"
+import {nextPiece,holdPiece,clearColumn} from "./script.js"
+var direction = ""
 export class Controls {
   constructor() {
     this.das = 170;
@@ -25,6 +26,7 @@ export class Controls {
             },controls.das)
             controls.autoRepeatDisabler = true;
           }
+          direction = "r"
           break;
         case 38:
           currentPiece.rotateCW();
@@ -39,6 +41,7 @@ export class Controls {
             },controls.das)
             controls.autoRepeatDisabler = true;
           }
+          direction = "l"
           break;
         case 40:
            currentPiece.softDrop()
@@ -52,6 +55,10 @@ export class Controls {
           break;
         case 67:
           holdPiece();
+          break;
+        case 88:
+          currentPiece.rotateCW();
+          currentPiece.rotateCW();
           break;
         case event.keyCode:
           console.log(event.keyCode)
