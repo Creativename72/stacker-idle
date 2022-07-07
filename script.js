@@ -1,5 +1,5 @@
 //imports
-import {SevenBag} from "./SevenBag.js"
+import {NextQueue} from "./NextQueue.js"
 import {Controls} from "./Controls.js"
 import {line,clearMatrix,drawMatrix,drawMinoes} from "./graphics.js"
 //variable declaration
@@ -8,13 +8,14 @@ const ctx = c.getContext("2d");
 export const board = [];
 export var currentPiece = null;
 export var hold = null;
-const bag = new SevenBag();
+const nextQueue = new NextQueue();
 export var controls = new Controls();
 controls.addKeyDownListener();
 controls.addKeyUpListener();
 
 //functions
 export function nextPiece() {
+  //writes current piece to board
   for (var y in currentPiece.board) {
     for (var x in currentPiece.board[y]) {
       if (currentPiece.board[y][x]) {
@@ -23,7 +24,7 @@ export function nextPiece() {
     }
   }
   
-  currentPiece = bag.getNextPiece()
+  currentPiece = nextQueue.getNextPiece()
   //line clears
   for (var line = 0; line < 20; line++) {
     var lineFull = true;
@@ -50,7 +51,7 @@ export function clearColumn(x,y) {
 export function holdPiece() {
   if (hold == null) {
     hold = currentPiece;
-    currentPiece = bag.getNextPiece();
+    currentPiece = nextQueue.getNextPiece();
   } else {
     var switcher = null;
     switcher = hold;
@@ -63,7 +64,7 @@ export function holdPiece() {
 
 function main() {
   ctx.lineWidth = 1;
-  currentPiece = bag.getNextPiece();
+  currentPiece = nextQueue.getNextPiece();
   for (var i = 0; i < 10; i++) {
     board.push([]);
     for (var j = 0; j < 10; j++) {
