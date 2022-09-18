@@ -8,7 +8,7 @@ const ctx = c.getContext("2d");
 export const board = [];
 export var currentPiece = null;
 export var hold = null;
-const nextQueue = new NextQueue();
+export const nextQueue = new NextQueue(7);
 export var controls = new Controls();
 controls.addKeyDownListener();
 controls.addKeyUpListener();

@@ -79,18 +79,31 @@ export class Tetromino {
       this.rotateCW()
     }
   }
+  
   softDrop() {
     this.y += 1;
     if (this.intersect()) {
       this.y -= 1;
     }
   }
+  
   hardDrop() {
     while(!this.intersect()) {
       this.y += 1;
     }
     this.y -= 1;
   }
+  
+  renderGhost() {
+    var initY = this.y;
+    while(!this.intersect()) {
+      this.y += 1;
+    }
+    this.y -= 1;
+    this.render();
+    this.y = initY;
+  }
+  
   intersect() {
     for (var y in this.board) {
       for (var x in this.board[y]) {
@@ -117,6 +130,7 @@ export class Tetromino {
       this.x -= 1;
     }
   }
+  
   rotateCW() {
     this.rotation += 1;
     this.rotation %= 4;
@@ -140,6 +154,7 @@ export class Tetromino {
     
     
   }
+  
   rotateCCW() {
     this.rotation -= 1;
     this.rotation %= 4;

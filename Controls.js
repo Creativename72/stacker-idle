@@ -6,7 +6,7 @@ var direction = ""
 export class Controls {
   constructor() {
     this.das = 170;
-    this.arr = 50;
+    this.arr = 1;
     this.dasController = null;
     this.arrController = null;
     this.arrActive = false;
@@ -44,7 +44,7 @@ export class Controls {
           direction = "l"
           break;
         case 40:
-           currentPiece.softDrop()
+           currentPiece.hardDrop()
            break;
         case 32:
           currentPiece.hardDrop();

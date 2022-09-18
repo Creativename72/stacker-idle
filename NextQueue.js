@@ -1,4 +1,5 @@
 import {SevenBag} from "./SevenBag.js"
+
 export class NextQueue {
   constructor(size) {
     this.bag = new SevenBag();

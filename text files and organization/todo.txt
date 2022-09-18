@@ -1,7 +1,8 @@
-next queue
 fix control eating
 SRS kick table
 0 arr
-Ghost Pieces
+Ghost Pieces proper rendering
 Keybinds
 t-spin detection
+game over and reset functions
+tutorial
