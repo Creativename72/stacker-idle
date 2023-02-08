@@ -1,8 +1,7 @@
-fix control eating
+Priority List:
 SRS kick table
-0 arr
-Ghost Pieces proper rendering
-Keybinds
 t-spin detection
 game over and reset functions
-tutorial
+Keybinds/change event.keycode to event.code
+begin core incremental/idle mechanic design
+dark mode

@@ -13,38 +13,38 @@ export class SevenBag {
   refreshBag() {
     var oShape = ["11",
               "11"];
-    var oColor = "yellow";
+    var oColor = "rgb(255, 255, 0)";
     var sShape = ["011",
               "110",
               "000"];
-    var sColor = "green";
+    var sColor = "rgb(0, 128, 0)";
     var zShape = ["110",
               "011",
               "000"];
-    var zColor = "red";
+    var zColor = "rgb(255, 0, 0)";
     var lShape = ["001",
               "111",
               "000"];
-    var lColor = "orange";
+    var lColor = "rgb(255, 165, 0)";
     var jShape = ["100",
               "111",
               "000"];
-    var jColor = "blue";
+    var jColor = "rgb(0, 0, 255)";
     var tShape = ["010",
               "111",
               "000"];
-    var tColor = "purple";
+    var tColor = "rgb(128, 0, 128)";
     var iShape = ["0000",
               "1111",
               "0000",
               "0000"]
-    var iColor = "cyan";
+    var iColor = "rgb(0, 255, 255)";
     this.piecesLeft = [new Tetromino(oShape,oColor),
                        new Tetromino(sShape,sColor),
                        new Tetromino(zShape,zColor),
                        new Tetromino(lShape,lColor),
                        new Tetromino(jShape,jColor),
                        new Tetromino(tShape,tColor),
-                       new Tetromino(iShape,iColor),]
+                       new Tetromino(iShape,iColor)]
   }
 }

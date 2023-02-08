@@ -10,12 +10,15 @@ export var currentPiece = null;
 export var hold = null;
 export const nextQueue = new NextQueue(7);
 export var controls = new Controls();
+export var score = 0;
+export var scoreDictionary = {0:0, 1:1, 2:3, 3:5, 4:8};
 controls.addKeyDownListener();
 controls.addKeyUpListener();
 
 //functions
 export function nextPiece() {
   //writes current piece to board
+  var linesCleared = 0;
   for (var y in currentPiece.board) {
     for (var x in currentPiece.board[y]) {
       if (currentPiece.board[y][x]) {
@@ -37,8 +40,12 @@ export function nextPiece() {
       for (var x = 0; x < 10;x++) {
         clearColumn(x,line);
       }
+      linesCleared += 1;
     }
   }
+  
+  score += scoreDictionary[linesCleared];
+  updateDisplays();
 }
 
 export function clearColumn(x,y) {
@@ -60,6 +67,10 @@ export function holdPiece() {
   }
   hold.reset()
   currentPiece.reset()
+}
+
+function updateDisplays() {
+  document.getElementById("MoneyDisplay").innerHTML = "Money:" + score;
 }
 
 function main() {

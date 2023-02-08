@@ -14,12 +14,14 @@ export function clearMatrix() {
   ctx.clearRect(0,0,c.width,c.height)
   ctx.beginPath()
 }
+
 function renderPieceDisplaced(piece,xChange,yChange) {
   piece.x -= xChange
   piece.y += yChange
   piece.render()
   piece.reset()
 }
+
 export function drawMatrix() {
   clearMatrix();
   drawMatrixBG();

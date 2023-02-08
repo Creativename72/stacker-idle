@@ -5,17 +5,25 @@ import {boardScaler,xShift} from "./graphics.js";
 
 export class Mino {
   
-  constructor(color) {
+  constructor(color,ghostColor) {
     this.color = color;
+    this.ghostColor = ghostColor;
   }
   
-  render(x,y,context) {
-    //this is the bug because its rendering based off x,y stuff i think maybe
+  render(x,y,context) { 
     var oldFillStyle = context.fillStyle;
     context.fillStyle = this.color;
     var size = ((c.width * (boardScaler))/10);
     context.fillRect((x * size) + context.lineWidth + xShift,(y * size) + context.lineWidth,(size - context.lineWidth * 2),size - context.lineWidth * 2);
-    context.fillStyle = oldFillStyle
+    context.fillStyle = oldFillStyle;
+  }
+
+  renderOutline(x,y,context) {
+    var oldFillStyle = context.fillStyle;
+    context.fillStyle = this.ghostColor;
+    var size = ((c.width * (boardScaler))/10);
+    context.fillRect((x * size) + context.lineWidth + xShift,(y * size) + context.lineWidth,(size - context.lineWidth * 2),size - context.lineWidth * 2);
+    context.fillStyle = oldFillStyle;
   }
 
   intersect(x,y) {
@@ -34,13 +42,14 @@ export class Mino {
 
 export class Tetromino {
   constructor(shape,color) {
-    this.board = []
-    this.color = color
+    this.board = [];
+    this.color = color;
+    this.ghostColor = "rgba" + color.substring(3,color.length-1) + ", 0.75)";
     for (var i = 0; i < shape.length; i++) {
       this.board.push([]);
       for (var j = 0; j < shape.length; j++) {
         if (shape[i][j] == 1) {
-          this.board[i].push(new Mino(color));  
+          this.board[i].push(new Mino(this.color,this.ghostColor));  
         } else {
           this.board[i].push(null);
         }        
@@ -50,8 +59,8 @@ export class Tetromino {
       this.x = 3 + (3-this.board.length);
       this.y = 0;
     } else {
-      this.y = -1
-      this.x = 3
+      this.y = -1;
+      this.x = 3;
     }
     this.rotation = 0;
   }
@@ -62,6 +71,17 @@ export class Tetromino {
       for (var x in this.board[y]) {
         if (this.board[y][x]) {
           this.board[y][x].render(this.x + parseInt(x), this.y + parseInt(y),context);
+        }
+      }
+    }
+  }
+
+  renderOutline() {
+    var context = ctx;
+    for (var y in this.board) {
+      for (var x in this.board[y]) {
+        if (this.board[y][x]) {
+          this.board[y][x].renderOutline(this.x + parseInt(x), this.y + parseInt(y),context);
         }
       }
     }
@@ -96,11 +116,15 @@ export class Tetromino {
   
   renderGhost() {
     var initY = this.y;
+    var flag = false;
     while(!this.intersect()) {
       this.y += 1;
+      flag = true;
     }
-    this.y -= 1;
-    this.render();
+    if (flag) {
+      this.y -= 1;
+    }
+    this.renderOutline();
     this.y = initY;
   }
   
@@ -128,6 +152,28 @@ export class Tetromino {
     this.x += 1;
     if (this.intersect()) {
       this.x -= 1;
+    }
+  }
+
+  snapRight() {
+    var flag = false;
+    while(!this.intersect()) {
+      this.x += 1;
+      flag = true;
+    }
+    if (flag) {
+      this.x -= 1;
+    }
+  }
+
+  snapLeft() {
+    var flag = false;
+    while(!this.intersect()) {
+      this.x -= 1;
+      flag = true;
+    }
+    if (flag) {
+      this.x += 1;
     }
   }
   
